@@ -24,7 +24,7 @@ Entender → Documentar → Experimentar → Comparar → Diseñar → Automatiz
 ## 🧭 Plan técnico
 
 | Etapa | Objetivo |
-|---|---|:---:|
+|---|:---:|
 | **0 · Laboratorio** | Preparar Linux, Apache, PHP y MariaDB |
 | **1 · Primer Moodle** | Instalar una instancia desde cero y documentar el proceso |
 | **2 · Multitenant** | Ejecutar varias instancias y estudiar su aislamiento |
