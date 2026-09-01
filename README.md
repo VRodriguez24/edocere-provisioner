@@ -56,7 +56,7 @@ Validación final
 Tenant operativo
 ```
 
-## 🧪 El laboratorio local utiliza:
+## 🧪 El laboratorio local utiliza
 
 - Ubuntu **22.04.5 LTS**
 - Apache **2.4.52**
