@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Secrets / local config
+*.env
+*.secret
+secrets/
+credentials/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
