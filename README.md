@@ -56,9 +56,7 @@ Validación final
 Tenant operativo
 ```
 
-## 🧪 Estado actual
-
-La **Etapa 0** está completada. El laboratorio local utiliza:
+## 🧪 El laboratorio local utiliza:
 
 - Ubuntu **22.04.5 LTS**
 - Apache **2.4.52**
@@ -66,7 +64,6 @@ La **Etapa 0** está completada. El laboratorio local utiliza:
 - MariaDB **10.6.23**
 - `max_input_vars = 5000`
 
-**Próximo paso:** instalar manualmente la primera instancia Moodle y registrar cada operación necesaria para dejarla funcionando.
 
 ## 📚 Documentación
 
