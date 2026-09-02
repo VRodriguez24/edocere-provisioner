@@ -20,3 +20,8 @@ credentials/
 
 # Temporary files
 *.tmp
+# Moodle source used only by the local Docker experiment
+experiments/docker/moodle/
+
+# Local secrets for Docker experiment
+experiments/docker/.env

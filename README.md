@@ -27,7 +27,7 @@ Entender → Documentar → Experimentar → Comparar → Diseñar → Automatiz
 |---|---|:---:|
 | **0 · Laboratorio** | Preparar Linux, Apache, PHP y MariaDB | ✅ |
 | **1 · Primer Moodle** | Instalar una instancia nativa desde cero y documentar el proceso | ✅ |
-| **2 · Alternativas** | Repetir una instalación equivalente con Docker y comparar ambos enfoques | ⬜ |
+| **2 · Alternativas** | Repetir una instalación equivalente con Docker y comparar ambos enfoques | ✅ |
 | **3 · Multitenant** | Ejecutar varias instancias y estudiar aislamiento y recursos compartidos | ⬜ |
 | **4 · Aprovisionamiento** | Definir inputs, pasos, estados, validaciones, errores e idempotencia | ⬜ |
 | **5 · Automatización** | Construir el provisioner a partir del proceso validado | ⬜ |
@@ -55,6 +55,31 @@ La primera instalación nativa quedó operativa y validada funcionalmente.
 | Permisos | código protegido y `moodledata` escribible por Apache |
 
 La IP corresponde únicamente al laboratorio WSL y puede cambiar. La configuración de dominios por tenant se retomará al estudiar el escenario multitenant.
+
+## ✅ Resultado de la Etapa 2
+
+Se implementó una segunda instancia Moodle equivalente utilizando Docker Compose y se comparó experimentalmente con la instalación nativa de la Etapa 1.
+
+| Recurso / validación | Nativo | Docker |
+|---|:---:|:---:|
+| Moodle 4.5.13+ | ✅ | ✅ |
+| Mismo commit Moodle | ✅ | ✅ |
+| Tablas creadas | 494 | 494 |
+| HTTP funcional | ✅ | ✅ |
+| Cron operativo | ✅ | ✅ |
+| Código protegido | ✅ | ✅ |
+| `moodledata` escribible | ✅ | ✅ |
+| Curso de prueba | ✅ | ✅ |
+| Persistencia tras recrear runtime | — | ✅ |
+| DNS interno entre servicios | — | ✅ |
+
+La prueba Docker utilizó tres servicios: `web`, `cron` y `db`. También se comprobó que los contenedores pueden eliminarse y recrearse sin perder la base de datos ni `moodledata`.
+
+Docker mostró ventajas en aislamiento, encapsulamiento de dependencias, configuración declarativa y reconstrucción del runtime, pero también introdujo complejidad adicional asociada a redes, volúmenes, permisos y entrypoints.
+
+La Etapa 2 **no decide todavía que Docker sea la arquitectura final**. La ubicación y organización de los contenedores se evaluará en la Etapa 3 al estudiar el escenario multitenant y distinguir recursos dedicados de recursos compartidos.
+
+Los resultados completos se encuentran en [`docs/02-comparacion-native-docker.md`](docs/02-comparacion-native-docker.md).
 
 ## ⚙️ Flujo de aprovisionamiento aprendido
 

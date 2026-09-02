@@ -1,0 +1,80 @@
+name: edocere-moodle-docker
+
+services:
+  db:
+    image: mariadb:10.6
+    restart: unless-stopped
+
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "healthcheck.sh",
+          "--connect",
+          "--innodb_initialized"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  web:
+    image: moodlehq/moodle-php-apache:8.1
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    ports:
+      - "8080:80"
+
+    environment:
+      MOODLE_DOCKER_RUNNING: "1"
+
+    volumes:
+      - ./moodle:/var/www/html
+      - moodledata_data:/var/moodledata
+
+  cron:
+    image: moodlehq/moodle-php-apache:8.1
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    environment:
+      MOODLE_DOCKER_RUNNING: "1"
+
+    volumes:
+      - ./moodle:/var/www/html
+      - moodledata_data:/var/moodledata
+
+    command:
+      - sh
+      - -lc
+      - |
+        exec su -s /bin/sh www-data -c '
+          while true; do
+            php /var/www/html/admin/cli/cron.php --keep-alive=55
+            sleep 5
+          done
+        '
+
+volumes:
+  mariadb_data:
+  moodledata_data:
